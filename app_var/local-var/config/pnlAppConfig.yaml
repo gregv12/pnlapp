@@ -1,11 +1,13 @@
 # --------- EVENT INPUT FEEDS BEGIN CONFIG ---------
 agentHostedEventFeeds:
   - name: tradeEventFeed
+    broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/trades.jsonl
       readStrategy: COMMITED
+#      readStrategy: EARLIEST
       batchSize: 10
-    valueMapper: !!com.telamin.app.pnl.TradeDTODeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.TradeDtoDeserialiser { }
     wrapWithNamedEvent: false
     agentGroup: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
@@ -17,7 +19,7 @@ agentHostedEventFeeds:
       publishOnStart: true
       readStrategy: EARLIEST
       batchSize: 5
-    valueMapper: !!com.telamin.app.pnl.SymbolDTODeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.SymbolDtoDeserialiser { }
     wrapWithNamedEvent: false
     agentGroup: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
@@ -45,9 +47,9 @@ eventHandlerAgents:
       pnlCalc:
         eventHandler: !!com.fluxtion.server.lib.pnl.calculator.FluxtionPnlCalculator { }
         logLevel: INFO
-        configMap:
-          symbols:
-            - { symbol: EURUSD, dealt: EUR, contra: USD }
-            - { symbol: EURJPY, dealt: EUR, contra: JPY }
-            - { symbol: GBPUSD, dealt: GBP, contra: USD }
+#        configMap:
+#          symbols:
+#            - { symbol: EURUSD, dealt: EUR, contra: USD }
+#            - { symbol: EURJPY, dealt: EUR, contra: JPY }
+#            - { symbol: GBPUSD, dealt: GBP, contra: USD }
 # --------- EVENT HANDLERS END CONFIG ---------
