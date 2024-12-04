@@ -1,0 +1,39 @@
+Configuration:
+#  status: WARN
+#  name: Default
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} [%t] %-6level %logger{36} %msg%n"
+    File:
+      - name: AppLog
+        fileName: /app/var/log/app.log
+        bufferedIO: true
+        PatternLayout:
+          Pattern: "%d{HH:mm:ss.SSS} [%t] %-6level%logger{36} %msg\n"
+        append: false
+      - name: EventAudit
+        fileName: /app/var/log/auditLog.yaml
+        bufferedIO: true
+        PatternLayout:
+          Pattern: "---%n#%d{HH:mm:ss.SSS} [%t] %-6level %logger{36} %n%msg%n"
+        append: false
+  Loggers:
+    logger:
+      - name: com.fluxtion
+        level: INFO
+        additivity: false
+        AppenderRef:
+          ref: AppLog
+      - name: eventAudit
+        level: INFO
+        additivity: true
+        AppenderRef:
+          ref: EventAudit
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: Console

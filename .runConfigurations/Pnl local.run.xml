@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Pnl local" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.telamin.app.pnl.ExampleMain" />
+    <module name="pnlapp" />
+    <option name="VM_PARAMETERS" value="-Dfluxtionserver.config.file=config/pnlAppConfig.yaml -Dlog4j2.configurationFile=config/log4j2.yaml -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager --enable-native-access=ALL-UNNAMED" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app_var/local-var" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.telamin.app.pnl.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

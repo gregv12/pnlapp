@@ -1,0 +1,37 @@
+# --------- EVENT INPUT FEEDS BEGIN CONFIG ---------
+agentHostedEventFeeds:
+  - name: tradeEventFeed
+    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
+      filename: /app/var/data_in/trades.jsonl
+    valueMapper: !!com.telamin.app.pnl.TradeDeserialiser { }
+    wrapWithNamedEvent: false
+    agentGroup: fileReader-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
+# --------- EVENT INPUT FEEDS END CONFIG ---------
+
+# --------- EVENT OUTPUT SINK BEGIN CONFIG ---------
+eventSinks:
+  - name: globalNetMtmListener
+    valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
+    instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
+      filename: /app/var/results/netMtm.jsonl
+  - name: instrumentNetMtmListener
+    valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
+    instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
+      filename: /app/var/results/instrumentMtm.jsonl
+# --------- EVENT OUTPUT SINK END CONFIG ---------
+
+# --------- EVENT HANDLERS BEGIN CONFIG ---------
+eventHandlerAgents:
+  - agentName: heartBeatProcessor-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
+    eventHandlers:
+      pnlCalc:
+        eventHandler: !!com.fluxtion.server.lib.pnl.calculator.FluxtionPnlCalculator { }
+        logLevel: INFO
+        configMap:
+          symbols:
+            - { symbol: EURUSD, dealt: EUR, contra: USD }
+            - { symbol: EURJPY, dealt: EUR, contra: JPY }
+            - { symbol: GBPUSD, dealt: GBP, contra: USD }
+# --------- EVENT HANDLERS END CONFIG ---------
