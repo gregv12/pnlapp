@@ -14,10 +14,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--        Fluxtion versions-->
         <fluxtion.version>9.4.2</fluxtion.version>
-        <fluxtion.server.version>0.1.43</fluxtion.server.version>
+        <fluxtion.server.version>0.1.44</fluxtion.server.version>
         <fluxtion.plugin.version>0.1.20</fluxtion.plugin.version>
-        <fluxtion.connector-file.version>${fluxtion.plugin.version}</fluxtion.connector-file.version>
-        <fluxtion.library-pnl.version>${fluxtion.plugin.version}</fluxtion.library-pnl.version>
+        <fluxtion.connector-file.version>0.1.21-SNAPSHOT</fluxtion.connector-file.version>
+        <fluxtion.library-pnl.version>0.1.21-SNAPSHOT</fluxtion.library-pnl.version>
     </properties>
 
     <build>

@@ -3,10 +3,26 @@ agentHostedEventFeeds:
   - name: tradeEventFeed
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/trades.jsonl
-    valueMapper: !!com.telamin.app.pnl.TradeDeserialiser { }
+      readStrategy: COMMITED
+      batchSize: 10
+    valueMapper: !!com.telamin.app.pnl.TradeDTODeserialiser { }
     wrapWithNamedEvent: false
     agentGroup: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
+
+  - name: symbolFeed
+    broadcast: true
+    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
+      filename: data_in/symbols.jsonl
+      publishOnStart: true
+      readStrategy: EARLIEST
+      batchSize: 5
+    valueMapper: !!com.telamin.app.pnl.SymbolDTODeserialiser { }
+    wrapWithNamedEvent: false
+    agentGroup: fileReader-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
+
+
 # --------- EVENT INPUT FEEDS END CONFIG ---------
 
 # --------- EVENT OUTPUT SINK BEGIN CONFIG ---------

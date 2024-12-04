@@ -8,15 +8,15 @@ package com.telamin.app.pnl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fluxtion.server.lib.pnl.TradeBatchDTO;
-import com.fluxtion.server.lib.pnl.TradeDTO;
+import com.fluxtion.server.lib.pnl.dto.TradeBatchDTO;
+import com.fluxtion.server.lib.pnl.dto.TradeDTO;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.function.Function;
 
 @Log4j2
-public class TradeDeserialiser implements Function<List<String>, Object> {
+public class TradeDTODeserialiser implements Function<List<String>, Object> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
