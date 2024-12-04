@@ -24,7 +24,16 @@ agentHostedEventFeeds:
     agentGroup: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 
-
+  - name: rateFeed
+    broadcast: true
+    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
+      filename: data_in/rates.jsonl
+      publishOnStart: true
+      batchSize: 5
+    valueMapper: !!com.telamin.app.pnl.MidPriceDtoDeserialiser { }
+    wrapWithNamedEvent: false
+    agentGroup: fileReader-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- EVENT INPUT FEEDS END CONFIG ---------
 
 # --------- EVENT OUTPUT SINK BEGIN CONFIG ---------

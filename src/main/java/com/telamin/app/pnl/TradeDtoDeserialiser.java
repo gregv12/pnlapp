@@ -5,14 +5,14 @@
 
 package com.telamin.app.pnl;
 
-import com.fluxtion.server.lib.pnl.dto.TradeBatchDTO;
-import com.fluxtion.server.lib.pnl.dto.TradeDTO;
+import com.fluxtion.server.lib.pnl.dto.TradeBatchDto;
+import com.fluxtion.server.lib.pnl.dto.TradeDto;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class TradeDtoDeserialiser extends BatchDtoDeserialiser<TradeDTO> {
+public class TradeDtoDeserialiser extends BatchDtoDeserialiser<TradeDto> {
 
     public TradeDtoDeserialiser() {
-        super(TradeDTO.class, TradeBatchDTO::new);
+        super(TradeDto.class, TradeBatchDto::new);
     }
 }

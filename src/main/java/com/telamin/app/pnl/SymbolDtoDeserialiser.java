@@ -5,14 +5,14 @@
 
 package com.telamin.app.pnl;
 
-import com.fluxtion.server.lib.pnl.dto.SymbolBatchDTO;
-import com.fluxtion.server.lib.pnl.dto.SymbolDTO;
+import com.fluxtion.server.lib.pnl.dto.SymbolBatchDto;
+import com.fluxtion.server.lib.pnl.dto.SymbolDto;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class SymbolDtoDeserialiser extends BatchDtoDeserialiser<SymbolDTO> {
+public class SymbolDtoDeserialiser extends BatchDtoDeserialiser<SymbolDto> {
 
     public SymbolDtoDeserialiser() {
-        super(SymbolDTO.class, SymbolBatchDTO::new);
+        super(SymbolDto.class, SymbolBatchDto::new);
     }
 }
