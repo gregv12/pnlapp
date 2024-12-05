@@ -4,7 +4,6 @@ agentHostedEventFeeds:
     broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/trades.jsonl
-      readStrategy: COMMITED
 #      readStrategy: EARLIEST
       batchSize: 10
     valueMapper: !!com.telamin.app.pnl.TradeDtoDeserialiser { }
@@ -29,12 +28,25 @@ agentHostedEventFeeds:
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/rates.jsonl
       publishOnStart: true
+      readStrategy: EARLIEST
       batchSize: 5
     valueMapper: !!com.telamin.app.pnl.MidPriceDtoDeserialiser { }
     wrapWithNamedEvent: false
     agentGroup: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
+
+  - name: positionSnapshot
+    broadcast: true
+    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
+      filename: data_in/positionSnapshot.jsonl
+      readStrategy: ONCE_LATEST
+      publishOnStart: true
+    valueMapper: !!com.telamin.app.pnl.PositionMapDeserialiser { }
+    wrapWithNamedEvent: false
+    agentGroup: fileReader-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- EVENT INPUT FEEDS END CONFIG ---------
+
 
 # --------- EVENT OUTPUT SINK BEGIN CONFIG ---------
 eventSinks:
@@ -46,7 +58,12 @@ eventSinks:
     valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
     instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
       filename: results/instrumentMtm.jsonl
+  - name: positionSnapshotListener
+    valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
+    instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
+      filename: data_in/positionSnapshot.jsonl
 # --------- EVENT OUTPUT SINK END CONFIG ---------
+
 
 # --------- EVENT HANDLERS BEGIN CONFIG ---------
 eventHandlerAgents:
