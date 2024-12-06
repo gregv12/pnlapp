@@ -11,7 +11,7 @@ echo running in `pwd`
 
  docker run -d \
    -it \
-   --name testPnlApp \
+   --name testPnlAppLocal \
    -v /Users/greg/IdeaProjects/pnlapp/app_var/docker-var:/app/var \
    gregh101/pnl-app
 
