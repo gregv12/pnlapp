@@ -67,7 +67,7 @@ eventSinks:
 
 # --------- EVENT HANDLERS BEGIN CONFIG ---------
 eventHandlerAgents:
-  - agentName: heartBeatProcessor-thread
+  - agentName: pnlCalulator-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
     eventHandlers:
       pnlCalc:
