@@ -1,7 +1,7 @@
 # Pnl Calculator
 
 The docker application wraps a pnl calculator that operates in real time listening to changes in the file system to 
-calculate positions and pnl. 
+calculate positions and pnl. Inputs and outputs sources are external files mounted into the docker container. 
 
 ## Running the app
 
