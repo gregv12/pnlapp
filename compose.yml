@@ -2,4 +2,4 @@ services:
   pnlImage:
     image: "gregh101/pnl-app"
     volumes:
-      - /Users/greg/IdeaProjects/pnlapp/app_var/docker-var:/app/var
+      - ${PWD}/app_var/docker-var:/app/var
