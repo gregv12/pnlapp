@@ -3,3 +3,5 @@ services:
     image: "gregh101/pnl-app"
     volumes:
       - ${PWD}/app_var/docker-var:/app/var
+    ports:
+      - 2099:2099
