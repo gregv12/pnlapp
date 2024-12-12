@@ -90,6 +90,11 @@
             <version>${fluxtion.library-pnl.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.fluxtion</groupId>
+            <artifactId>serverplugin-admintelnet</artifactId>
+            <version>${fluxtion.plugin.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>

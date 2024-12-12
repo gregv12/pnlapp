@@ -15,6 +15,12 @@ Configuration:
         PatternLayout:
           Pattern: "%d{HH:mm:ss.SSS} [%t] %-6level%logger{36} %msg\n"
         append: false
+      - name: ErrorLog
+        fileName: log/error.log
+        bufferedIO: true
+        PatternLayout:
+          Pattern: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %msg\n"
+        append: false
       - name: EventAudit
         fileName: log/auditLog.yaml
         bufferedIO: true
@@ -28,6 +34,11 @@ Configuration:
         additivity: false
         AppenderRef:
           ref: AppLog
+      - name: errorLogger
+        level: INFO
+        additivity: false
+        AppenderRef:
+          ref: ErrorLog
       - name: eventAudit
         level: INFO
         additivity: true

@@ -65,12 +65,30 @@ eventSinks:
 # --------- EVENT OUTPUT SINK END CONFIG ---------
 
 
+# --------- SERVICE START CONFIG ---------
+services:
+  # Admin command registry
+  - serviceClass:  com.fluxtion.server.service.admin.AdminCommandRegistry
+    service: !!com.fluxtion.server.service.admin.impl.AdminCommandProcessor { }
+  # Telnet admin
+  - service: !!com.fluxtion.server.plugin.adminconsole.TelnetAdminCommandProcessor
+      listenPort: 2099
+  # Control fluxtion server
+  - service: !!com.fluxtion.server.service.servercontrol.FluxtionServerAdmin { }
+# --------- SERVICE END CONFIG ---------
+
 # --------- EVENT HANDLERS BEGIN CONFIG ---------
 eventHandlerAgents:
-  - agentName: pnlCalulator-thread
+  - agentName: pnlCalculator-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
     eventHandlers:
       pnlCalc:
         eventHandler: !!com.fluxtion.server.lib.pnl.calculator.FluxtionPnlCalculator { }
         logLevel: INFO
+        configMap:
+          errorLogName: errorLogger
+#          symbols:
+#            - { symbol: EURUSD, dealt: EUR, contra: USD }
+#            - { symbol: EURJPY, dealt: EUR, contra: JPY }
+#            - { symbol: GBPUSD, dealt: GBP, contra: USD }
 # --------- EVENT HANDLERS END CONFIG ---------
