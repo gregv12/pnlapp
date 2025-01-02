@@ -1,6 +1,6 @@
 Configuration:
-#  status: WARN
-#  name: Default
+  #  status: WARN
+  #  name: Default
 
   Appenders:
     Console:

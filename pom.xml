@@ -13,9 +13,10 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--        Fluxtion versions-->
-        <fluxtion.version>9.4.4</fluxtion.version>
-        <fluxtion.server.version>0.1.48</fluxtion.server.version>
-        <fluxtion.plugin.version>0.1.27</fluxtion.plugin.version>
+        <fluxtion.version>9.5.1</fluxtion.version>
+        <fluxtion.server.version>0.1.53</fluxtion.server.version>
+        <fluxtion.plugin.version>0.1.32-SNAPSHOT</fluxtion.plugin.version>
+
         <fluxtion.mavenplugin.version>3.0.14</fluxtion.mavenplugin.version>
         <fluxtion.connector-file.version>${fluxtion.plugin.version}</fluxtion.connector-file.version>
         <fluxtion.library-pnl.version>${fluxtion.plugin.version}</fluxtion.library-pnl.version>
