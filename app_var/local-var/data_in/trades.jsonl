@@ -1,4 +1,4 @@
-{"symbol":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}
-{"symbol":"EURUSD","dealtVolume":-2500.0,"contraVolume":2000.0,"fee":0.5,"feeInstrument":"USD"}
-{"symbol":"GBPUSD","dealtVolume":500.0,"contraVolume":-625,"fee":0.2,"feeInstrument":"USD"}
-{"symbol":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}
+{"id":"2","symbol":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}
+{"id":"4","symbol":"EURUSD","dealtVolume":-2500.0,"contraVolume":2000.0,"fee":0.5,"feeInstrument":"USD"}
+{"id":"7","symbol":"GBPUSD","dealtVolume":500.0,"contraVolume":-625,"fee":0.2,"feeInstrument":"USD"}
+{"id":"9","symbol":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}

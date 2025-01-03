@@ -20,6 +20,7 @@
         <fluxtion.mavenplugin.version>3.0.14</fluxtion.mavenplugin.version>
         <fluxtion.connector-file.version>${fluxtion.plugin.version}</fluxtion.connector-file.version>
         <fluxtion.library-pnl.version>${fluxtion.plugin.version}</fluxtion.library-pnl.version>
+        <fluxtion.cache.version>${fluxtion.plugin.version}</fluxtion.cache.version>
     </properties>
 
     <build>
@@ -89,6 +90,11 @@
             <groupId>com.fluxtion</groupId>
             <artifactId>serverlibrary-pnl</artifactId>
             <version>${fluxtion.library-pnl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fluxtion</groupId>
+            <artifactId>serverplugin-cache</artifactId>
+            <version>${fluxtion.cache.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fluxtion</groupId>

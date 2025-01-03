@@ -11,7 +11,6 @@ eventFeeds:
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 
   - name: symbolFeed
-#    broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/symbols.jsonl
       cacheEventLog: true
@@ -72,6 +71,13 @@ services:
       listenPort: 2099
   # Control fluxtion server
   - service: !!com.fluxtion.server.service.servercontrol.FluxtionServerAdmin { }
+  # json cache
+  - serviceClass: com.fluxtion.server.plugin.cache.Cache
+    service: !!com.fluxtion.server.plugin.cache.JsonFileCache
+      fileName: cache/dataCache.json
+    name: positionCache
+    agentGroup: cache-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- SERVICE END CONFIG ---------
 
 # --------- EVENT HANDLERS BEGIN CONFIG ---------
@@ -81,7 +87,7 @@ eventHandlers:
     eventHandlers:
       pnlCalc:
         eventHandler: !!com.fluxtion.server.lib.pnl.calculator.FluxtionPnlCalculator { }
-        logLevel: DEBUG
+        logLevel: INFO
         configMap:
           errorLogName: errorLogger
 # --------- EVENT HANDLERS END CONFIG ---------
