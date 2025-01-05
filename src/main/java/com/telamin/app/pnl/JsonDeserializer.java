@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.function.Function;
 
 @Log4j2
-public class JsonDeserialiser<T> implements Function<String, Object> {
+public class JsonDeserializer<T> implements Function<String, Object> {
 
     private final ObjectMapper objectMapper = JsonMapper.builder()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -25,7 +25,7 @@ public class JsonDeserialiser<T> implements Function<String, Object> {
     private final Class<T> clazz;
     private final Logger logger = LogManager.getLogger("errorLogger");
 
-    public JsonDeserialiser(Class<T> clazz) {
+    public JsonDeserializer(Class<T> clazz) {
         this.clazz = clazz;
     }
 

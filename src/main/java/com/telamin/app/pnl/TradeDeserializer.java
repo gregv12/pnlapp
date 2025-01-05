@@ -9,7 +9,7 @@ import com.fluxtion.server.lib.pnl.Trade;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class TradeDeserializer extends JsonDeserialiser<Trade> {
+public class TradeDeserializer extends JsonDeserializer<Trade> {
 
     public TradeDeserializer() {
         super(Trade.class);

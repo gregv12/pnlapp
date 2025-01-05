@@ -9,7 +9,7 @@ import com.fluxtion.server.lib.pnl.refdata.Symbol;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class SymbolDeserializer extends JsonDeserialiser<Symbol> {
+public class SymbolDeserializer extends JsonDeserializer<Symbol> {
 
     public SymbolDeserializer() {
         super(Symbol.class);

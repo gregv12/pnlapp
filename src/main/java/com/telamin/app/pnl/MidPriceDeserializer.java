@@ -9,7 +9,7 @@ import com.fluxtion.server.lib.pnl.MidPrice;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class MidPriceDeserializer extends JsonDeserialiser<MidPrice> {
+public class MidPriceDeserializer extends JsonDeserializer<MidPrice> {
 
     public MidPriceDeserializer() {
         super(MidPrice.class);
