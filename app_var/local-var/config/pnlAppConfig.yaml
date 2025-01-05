@@ -5,7 +5,7 @@ eventFeeds:
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/trades.jsonl
       readStrategy: EARLIEST
-    valueMapper: !!com.telamin.app.pnl.TradeDtoDeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.TradeDeserializer { }
     wrapWithNamedEvent: false
     agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
@@ -15,7 +15,7 @@ eventFeeds:
       filename: data_in/symbols.jsonl
       cacheEventLog: true
       readStrategy: EARLIEST
-    valueMapper: !!com.telamin.app.pnl.SymbolDtoDeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.SymbolDeserializer { }
     wrapWithNamedEvent: true
     agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
@@ -26,7 +26,7 @@ eventFeeds:
       filename: data_in/rates.jsonl
       cacheEventLog: true
       readStrategy: EARLIEST
-    valueMapper: !!com.telamin.app.pnl.MidPriceDtoDeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.MidPriceDeserializer { }
     wrapWithNamedEvent: false
     agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
