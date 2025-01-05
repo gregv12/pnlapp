@@ -30,17 +30,6 @@ eventFeeds:
     wrapWithNamedEvent: false
     agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
-
-#  - name: positionSnapshot
-#    broadcast: true
-#    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
-#      filename: data_in/positionSnapshot.jsonl
-#      readStrategy: ONCE_LATEST
-#      cacheEventLog: true
-#    valueMapper: !!com.telamin.app.pnl.PositionMapDeserialiser { }
-#    wrapWithNamedEvent: false
-#    agentName: fileReader-thread
-#    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- EVENT INPUT FEEDS END CONFIG ---------
 
 
@@ -54,10 +43,6 @@ eventSinks:
     valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
     instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
       filename: results/instrumentMtm.jsonl
-#  - name: positionSnapshotListener
-#    valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
-#    instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
-#      filename: data_in/positionSnapshot.jsonl
 # --------- EVENT OUTPUT SINK END CONFIG ---------
 
 
