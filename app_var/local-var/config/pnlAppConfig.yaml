@@ -59,7 +59,7 @@ services:
   # json cache
   - serviceClass: com.fluxtion.server.plugin.cache.Cache
     service: !!com.fluxtion.server.plugin.cache.JsonFileCache
-      fileName: cache/dataCache.json
+      fileName: cache/pnlRestartSnapshot.json
     name: positionCache
     agentGroup: cache-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
