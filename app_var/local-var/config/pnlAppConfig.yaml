@@ -4,7 +4,7 @@ eventFeeds:
     broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: data_in/trades.jsonl
-      readStrategy: EARLIEST
+#      readStrategy: EARLIEST
     valueMapper: !!com.telamin.app.pnl.TradeDeserializer { }
     wrapWithNamedEvent: false
     agentName: fileReader-thread
