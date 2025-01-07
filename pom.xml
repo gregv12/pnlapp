@@ -13,7 +13,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--        Fluxtion versions-->
-        <fluxtion.version>9.5.1</fluxtion.version>
+        <fluxtion.version>9.5.2</fluxtion.version>
         <fluxtion.server.version>0.1.53</fluxtion.server.version>
         <fluxtion.plugin.version>0.1.32-SNAPSHOT</fluxtion.plugin.version>
 
