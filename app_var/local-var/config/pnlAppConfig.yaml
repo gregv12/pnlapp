@@ -72,7 +72,7 @@ eventHandlers:
     eventHandlers:
       pnlCalc:
         eventHandler: !!com.fluxtion.server.lib.pnl.calculator.FluxtionPnlCalculator { }
-        logLevel: DEBUG
+        logLevel: WARN
         configMap:
           errorLogName: errorLogger
 # --------- EVENT HANDLERS END CONFIG ---------
