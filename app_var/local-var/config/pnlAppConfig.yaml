@@ -54,6 +54,7 @@ services:
   # Telnet admin
   - service: !!com.fluxtion.server.plugin.adminconsole.TelnetAdminCommandProcessor
       listenPort: 2099
+      interfaceName: localhost
   # Control fluxtion server
   - service: !!com.fluxtion.server.service.servercontrol.FluxtionServerAdmin { }
   # json cache

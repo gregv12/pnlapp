@@ -1,5 +1,4 @@
-{"symbol":"EURUSD", "price":"1.15"}
-{"symbol":"USDCHF", "price":"1.22"}
-{"symbol":"GBPUSD", "price":"1.24"}
-{"symbol":"GBPUSD", "price":"1.5"}
-{"symbol":"USDCHF", "price":"2.22"}
+{"symbolName":"EURUSD", "rate":"1.15"}
+{"symbolName":"USDCHF", "rate":"1.22"}
+{"symbolName":"GBPUSD", "rate":"1.24"}
+{"symbolName":"GBPUSD", "rate":"1.5"}

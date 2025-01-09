@@ -49,7 +49,7 @@ Results are published as jsonl files, new lines are appended as the input update
 
 - Global mark to market and positions app_var/docker-var/results/netMtm.jsonl
 - Per instrument breakdown app_var/docker-var/results/instrumentMtm.jsonl
-- Position snapshot app_var/docker-var/data_in/positionSnapshot.jsonl
+- Recovery file app_var/docker-var/data_in/positionSnapshot.jsonl
 
 ## Inputs
 
@@ -58,31 +58,99 @@ Inputs are stored as jsonl files and constantly watched for inputs
 - app_var/docker-var/data_in/trades.jsonl - trades that are used to update position calculations
 - app_var/docker-var/data_in/rates.jsonl - rates that are used to calculate the mark to market profit and loss
 - app_var/docker-var/data_in/symbols.jsonl - maps symbols to instruments
-- app_var/docker-var/data_in/positionSnapshot.jsonl - reads the last line on a restart for an initial position offset
 - app_var/docker-var/data_in/trades.jsonl.readPointer trades commited read pointer
+- app_var/docker-var/cache/pnlRestartSnapshot.json - stores a checkpoint for the current position state
 
 ## Realtime updates
 
 Appending elements to the trades.jsonl, rates.jsonl, symbols.jsonl triggers a calculation which pushes updates to the
 output files
 
-## Recovering state at startup
-
-Input and output is located in the `app_var/docker-var` directory. Startup order:
-
-1. Read symbols table
-2. Read position snapshot for any position offset to apply
-3. Read trades from the last commit read point
-4. Read the rates table
-
-The trades file has an automatically maintained read pointer, when restarted only trades past the pointer are processed.
-Any changes to positions from a calculation are published to the position snapshot file which is read at startup.
-
 ## Sample input data
 
-* trades: `{"symbol":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}`
-* rates: `{"symbol":"EURUSD", "price":"1.15"}`
-* symbols: `{"symbol":"USDCHF", "dealt":"USD", "contra":"CHF"}`
+* trades: `{"id":"2","symbolName":"USDCHF","dealtVolume":-150,"contraVolume":194,"fee":0.2,"feeInstrument":"CHF"}`
+* rates: `{"symbolName":"EURUSD", "price":"1.15"}`
+* symbols: `{"symbolName":"USDCHF", "dealt":"USD", "contra":"CHF"}`
+  id of the trade is a monotonically increasing number that is used to correlate with the checkpoint file.
+
+## Reset state
+
+The system persists state across restarts maintaining the position. Once processed a trade is ignored. To reset the 
+state of the system to reprocess all trades in the trades log:
+
+1. Stop the system
+2. Delete the trades.jsonl.readPointer
+3. Delete or edit the pnlRestartSnapshot.json as required
+4. Edit trades.jsonl as required
+5. Restart the system
+
+The trades log is read from the start and the position is calculated from zero.
+
+## Recovering state at startup
+
+  Input and output is located in the `app_var/docker-var` directory. Startup order:
+
+1. Read symbols table rto build reference data
+2. Read position checkpoint file and build initial positions
+3. Read trades from the last commit read point and update position calculations
+4. Read the rates table and update mark to market calculations
+
+  The trades file has an automatically maintained read pointer, when restarted only trades past the pointer are processed.
+  Any changes to positions from a calculation are published to the position checkpoint file which is read at startup. The
+
+## Telnet access
+
+The system can be accessed through telnet and the current position snapshot displayed
+
+```shell
+> pnlapp % telnet 127.0.0.1 2099
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+default commands:
+---------------------------
+quit         - exit the console
+help/?       - this message
+commands     - registered service commands
+eventSources - list event sources
+
+Service commands:
+---------------------------
+?
+cache.positionCache.get
+cache.positionCache.keys
+commands
+eventSources
+help
+resetPosition
+server.processors.list
+server.processors.stop
+server.service.list
+
+command > 
+
+```
+
+Use the `cache.positionCache.keys` command to list the snapshots keys that are stored in the pnlRestartSnapshot.json file,
+the highest index is the latest snapshot. 
+
+```shell
+command > cache.positionCache.keys
+keys:
+0
+2
+4
+7
+9
+```
+
+To view a snapshot use `cache.positionCache.get [index]` with the index you want to inspect
+
+```shell
+command > cache.positionCache.get 9
+9 -> PositionCache.ApplicationCheckpoint(globalPosition=PositionCache.PositionCheckpoint(fees={CHF=0.4, USD=0.7}, positions={CHF=388.0, EUR=-2500.0, GBP=500.0, USD=1075.0}), instrumentPositions={CHF=PositionCache.PositionCheckpoint(fees={CHF=0.4}, positions={CHF=388.0, USD=-300.0}), EUR=PositionCache.PositionCheckpoint(fees={USD=0.5}, positions={EUR=-2500.0, USD=2000.0}), GBP=PositionCache.PositionCheckpoint(fees={USD=0.2}, positions={GBP=500.0, USD=-625.0}), USD=PositionCache.PositionCheckpoint(fees={CHF=0.4, USD=0.7}, positions={CHF=388.0, EUR=-2500.0, GBP=500.0, USD=1075.0})})
+```
+
 
 ## Configuration
 
@@ -91,13 +159,4 @@ The configuration files are:
 - app_var/docker-var/config/pnlAppConfig.yaml defines the input source, output sources and the pnl calculation strategy
 - app_var/docker-var/config/log4j2.yaml control of log4j2
 
-## Reset state
-
-To reset the state of the system:
-
-1. Stop the system
-2. Delete the trades.jsonl.readPointer
-3. Edit positionSnapshot.jsonl as required
-4. Edit trades.jsonl as required
-5. Restart the system
 

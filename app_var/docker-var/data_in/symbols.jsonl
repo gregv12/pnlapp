@@ -1,7 +1,7 @@
-{"symbol":"EURUSD", "dealt":"EUR", "contra":"USD"}
-{"symbol":"EURJPY", "dealt":"EUR", "contra":"JPY"}
-{"symbol":"GBPUSD", "dealt":"GBP", "contra":"USD"}
-{"symbol":"EURGBP", "dealt":"EUR", "contra":"GBP"}
-{"symbol":"USDMXN", "dealt":"USD", "contra":"MXN"}
-{"symbol":"USDJPY", "dealt":"USD", "contra":"JPY"}
-{"symbol":"USDCHF", "dealt":"USD", "contra":"CHF"}
+{"symbolName":"EURUSD", "dealt":"EUR", "contra":"USD"}
+{"symbolName":"EURJPY", "dealt":"EUR", "contra":"JPY"}
+{"symbolName":"GBPUSD", "dealt":"GBP", "contra":"USD"}
+{"symbolName":"EURGBP", "dealt":"EUR", "contra":"GBP"}
+{"symbolName":"USDMXN", "dealt":"USD", "contra":"MXN"}
+{"symbolName":"USDJPY", "dealt":"USD", "contra":"JPY"}
+{"symbolName":"USDCHF", "dealt":"USD", "contra":"CHF"}

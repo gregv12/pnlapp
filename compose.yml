@@ -1,6 +1,8 @@
 services:
   pnlImage:
     image: "gregh101/pnl-app"
+    environment:
+      - JAVA_TOOL_OPTIONS="-XX:UseSVE=0"
     volumes:
       - ${PWD}/app_var/docker-var:/app/var
     ports:

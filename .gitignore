@@ -42,3 +42,5 @@ build/
 /app_var/docker-var/results/
 /app_var/**/*.readPointer
 /.idea/
+/app_var/docker-var/cache/
+/app_var/local-var/cache/

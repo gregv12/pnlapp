@@ -1,49 +1,34 @@
 # --------- EVENT INPUT FEEDS BEGIN CONFIG ---------
-agentHostedEventFeeds:
+eventFeeds:
   - name: tradeEventFeed
     broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: /app/var/data_in/trades.jsonl
-#      readStrategy: EARLIEST
-      batchSize: 10
-    valueMapper: !!com.telamin.app.pnl.TradeDtoDeserialiser { }
+    #      readStrategy: EARLIEST
+    valueMapper: !!com.telamin.app.pnl.TradeDeserializer { }
     wrapWithNamedEvent: false
-    agentGroup: fileReader-thread
+    agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 
   - name: symbolFeed
-    broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: /app/var/data_in/symbols.jsonl
-      publishOnStart: true
+      cacheEventLog: true
       readStrategy: EARLIEST
-      batchSize: 5
-    valueMapper: !!com.telamin.app.pnl.SymbolDtoDeserialiser { }
-    wrapWithNamedEvent: false
-    agentGroup: fileReader-thread
+    valueMapper: !!com.telamin.app.pnl.SymbolDeserializer { }
+    wrapWithNamedEvent: true
+    agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 
   - name: rateFeed
     broadcast: true
     instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
       filename: /app/var/data_in/rates.jsonl
-#      publishOnStart: true
+      cacheEventLog: true
       readStrategy: EARLIEST
-      batchSize: 5
-    valueMapper: !!com.telamin.app.pnl.MidPriceDtoDeserialiser { }
+    valueMapper: !!com.telamin.app.pnl.MidPriceDeserializer { }
     wrapWithNamedEvent: false
-    agentGroup: fileReader-thread
-    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
-
-  - name: positionSnapshot
-    broadcast: true
-    instance: !!com.fluxtion.server.plugin.connector.file.FileEventSource
-      filename: /app/var/data_in/positionSnapshot.jsonl
-      readStrategy: ONCE_LATEST
-      publishOnStart: true
-    valueMapper: !!com.telamin.app.pnl.PositionMapDeserialiser { }
-    wrapWithNamedEvent: false
-    agentGroup: fileReader-thread
+    agentName: fileReader-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- EVENT INPUT FEEDS END CONFIG ---------
 
@@ -58,10 +43,6 @@ eventSinks:
     valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
     instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
       filename: /app/var/results/instrumentMtm.jsonl
-  - name: positionSnapshotListener
-    valueMapper: !!com.telamin.app.pnl.MapFunction$MapToJson { }
-    instance: !!com.fluxtion.server.plugin.connector.file.FileMessageSink
-      filename: /app/var/data_in/positionSnapshot.jsonl
 # --------- EVENT OUTPUT SINK END CONFIG ---------
 
 
@@ -73,12 +54,20 @@ services:
   # Telnet admin
   - service: !!com.fluxtion.server.plugin.adminconsole.TelnetAdminCommandProcessor
       listenPort: 2099
+      interfaceName: 0.0.0.0
   # Control fluxtion server
   - service: !!com.fluxtion.server.service.servercontrol.FluxtionServerAdmin { }
+  # json cache
+  - serviceClass: com.fluxtion.server.plugin.cache.Cache
+    service: !!com.fluxtion.server.plugin.cache.JsonFileCache
+      fileName: /app/var/cache/pnlRestartSnapshot.json
+    name: positionCache
+    agentGroup: cache-thread
+    idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
 # --------- SERVICE END CONFIG ---------
 
 # --------- EVENT HANDLERS BEGIN CONFIG ---------
-eventHandlerAgents:
+eventHandlers:
   - agentName: pnlCalculator-thread
     idleStrategy: !!com.fluxtion.agrona.concurrent.BackoffIdleStrategy { }
     eventHandlers:
@@ -87,8 +76,4 @@ eventHandlerAgents:
         logLevel: INFO
         configMap:
           errorLogName: errorLogger
-#          symbols:
-#            - { symbol: EURUSD, dealt: EUR, contra: USD }
-#            - { symbol: EURJPY, dealt: EUR, contra: JPY }
-#            - { symbol: GBPUSD, dealt: GBP, contra: USD }
 # --------- EVENT HANDLERS END CONFIG ---------
