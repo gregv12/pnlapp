@@ -5,7 +5,9 @@ calculate positions and pnl. Inputs and outputs sources are external files mount
 
 ## Running the app
 
-Make sure you have docker installed and running then execute the command
+1. Make sure you have docker installed and running
+2. Clone this repo
+3. execute `docker compose up` in the root of the repo
 
 ```shell
 docker compose up
