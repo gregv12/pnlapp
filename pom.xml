@@ -15,7 +15,7 @@
         <!--        Fluxtion versions-->
         <fluxtion.version>9.5.2</fluxtion.version>
         <fluxtion.server.version>0.1.53</fluxtion.server.version>
-        <fluxtion.plugin.version>0.1.33-SNAPSHOT</fluxtion.plugin.version>
+        <fluxtion.plugin.version>0.1.35</fluxtion.plugin.version>
 
         <fluxtion.mavenplugin.version>3.0.14</fluxtion.mavenplugin.version>
         <fluxtion.connector-file.version>${fluxtion.plugin.version}</fluxtion.connector-file.version>
